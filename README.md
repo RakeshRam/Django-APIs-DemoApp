@@ -15,5 +15,12 @@ Run server in local environment.
 python manage.py runserver
 ```
 
+## Features
+* [Django REST framework](https://www.django-rest-framework.org/)
+  * Authentication
+    * Token Authentication
+    * JWT Authentication
+
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
