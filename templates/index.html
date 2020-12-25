@@ -1,0 +1,115 @@
+<!doctype html>
+{% load static %}
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Demo Django API's App</title>
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--====== Favicon Icon ======-->
+        <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/png">        
+        <!--====== Line Icons CSS ======-->
+        <link rel="stylesheet" href="{% static 'css/LineIcons.css' %}">
+        <!--====== Bootstrap CSS ======-->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <!--====== Default CSS ======-->
+        <link rel="stylesheet" href="{% static 'css/default.css' %}">
+        <!--====== Style CSS ======-->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">    
+    </head>
+
+    <body>
+        <!--[if IE]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+    <![endif]-->
+    
+        <!--====== PRELOADER PART START ======-->
+        <div class="preloader">
+            <div class="loader">
+                <div class="ytp-spinner">
+                    <div class="ytp-spinner-container">
+                        <div class="ytp-spinner-rotator">
+                            <div class="ytp-spinner-left">
+                                <div class="ytp-spinner-circle"></div>
+                            </div>
+                            <div class="ytp-spinner-right">
+                                <div class="ytp-spinner-circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====== PRELOADER PART ENDS ======-->
+        <!--====== FEATRES TWO PART START ======-->
+        <section id="services" class="features-area">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6 col-md-10">
+                        <div class="section-title text-center pb-10">
+                            <h3 class="title">Demo App</h3>
+                            <p class="text">Django demo applicaton with REST, GraphQL and gRPC</p>
+                        </div> <!-- row -->
+                    </div>
+                </div> <!-- row -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-7 col-sm-9">
+                        <div class="single-features mt-40">
+                            <div class="features-title-icon d-flex justify-content-between">
+                                <h4 class="features-title"><a href="#">REST</a></h4>
+                                <div class="features-icon">
+                                    <i class="lni lni-brush"></i>
+                                    <img class="shape" src="{% static 'images/f-shape-1.svg' %}" alt="Shape">
+                                </div>
+                            </div>
+                            <div class="features-content">
+                                <p class="text">Simple REST app using DRF(<a href="https://www.django-rest-framework.org/">Django Rest Framework</a>)</p>
+                                <a class="features-btn" href="http://127.0.0.1:8000/core/api/">REST APP</a>
+                            </div>
+                        </div> <!-- single features -->
+                    </div>
+                    <div class="col-lg-4 col-md-7 col-sm-9">
+                        <div class="single-features mt-40">
+                            <div class="features-title-icon d-flex justify-content-between">
+                                <h4 class="features-title"><a href="#">GraphQL</a></h4>
+                                <div class="features-icon">
+                                    <i class="lni lni-layout"></i>
+                                    <img class="shape" src="{% static 'images/f-shape-1.svg' %}" alt="Shape">
+                                </div>
+                            </div>
+                            <div class="features-content">
+                                <p class="text">Short description for the ones who look for something new. Short description for the ones who look for something new.</p>
+                                <a class="features-btn" href="#">GraphQL APP</a>
+                            </div>
+                        </div> <!-- single features -->
+                    </div>
+                    <div class="col-lg-4 col-md-7 col-sm-9">
+                        <div class="single-features mt-40">
+                            <div class="features-title-icon d-flex justify-content-between">
+                                <h4 class="features-title"><a href="#">gRPC</a></h4>
+                                <div class="features-icon">
+                                    <i class="lni lni-bolt"></i>
+                                    <img class="shape" src="{% static 'images/f-shape-1.svg' %}" alt="Shape">
+                                </div>
+                            </div>
+                            <div class="features-content">
+                                <p class="text">Short description for the ones who look for something new. Short description for the ones who look for something new.</p>
+                                <a class="features-btn" href="#">gRPC APP</a>
+                            </div>
+                        </div> <!-- single features -->
+                    </div>
+                </div> <!-- row -->
+            </div> <!-- container -->
+        </section>
+
+        <!--====== FEATRES TWO PART ENDS ======-->
+        <!--====== Jquery js ======-->
+        <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+        <!--====== Bootstrap js ======-->
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <!--====== Main js ======-->
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
+</html>

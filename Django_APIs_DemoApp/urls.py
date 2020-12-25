@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import TemplateView
 
 # REST
 from rest_framework.authtoken.views import obtain_auth_token
@@ -7,7 +8,10 @@ from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework_simplejwt import views as jwt_views
 
 urlpatterns = [
+    path('', TemplateView.as_view(template_name='index.html')),
     path('admin/', admin.site.urls),
+    
+    
     # CORE
     path('core/', include('core.urls')),
 
