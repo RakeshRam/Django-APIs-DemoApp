@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # Third Party Libs
     'rest_framework',
+    'rest_framework.authtoken',
 
     # App
     'core',
@@ -47,7 +48,14 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 25
+    'PAGE_SIZE': 5,
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # Token Auth(REST)
+        # 'rest_framework.authentication.TokenAuthentication',
+
+        # JWT Auth(REST)
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 }
 
 MIDDLEWARE = [

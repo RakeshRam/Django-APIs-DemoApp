@@ -1,12 +1,6 @@
 from rest_framework import serializers
 
-from .models import Author, Award, Publisher, Book
-
-class AuthorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Author
-        fields = ('name', 'award')
-        depth = 1
+from .models import Author, Award, Publisher, Book, AwardRecord
 
 class PublisherSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,9 +13,29 @@ class AwardSerializer(serializers.ModelSerializer):
         model = Award
         fields = ('name', 'country', 'category')
 
+class AwardRecordSerializer(serializers.ModelSerializer):
+    name = AwardSerializer(read_only=True, many=False)
+    class Meta:
+        model = AwardRecord
+        fields = ('name', 'awarded_on', 'is_active')
+
+class AuthorSerializer(serializers.ModelSerializer):
+    # SHOW AwardRecord SELECTION BOX
+    award = serializers.PrimaryKeyRelatedField(queryset=AwardRecord.objects.filter(is_active=True), many=True)
+    class Meta:
+        model = Author
+        fields = ('name', 'award', 'age')
+        depth = 2
+
 class BookSerializer(serializers.ModelSerializer):
+    # Hyper Link to Related ForeignKey(Ex: Author)
+    author = serializers.HyperlinkedRelatedField(
+                                                    many=True,
+                                                    read_only=True,
+                                                    view_name='author-detail'
+                                                )
     class Meta:
         model = Book
-        fields = ('name', 'author', 'award', )
+        fields = ('name', 'author', 'award')
         # fields = '__all__'
-        depth = 1
+        depth = 2
