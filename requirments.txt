@@ -4,3 +4,4 @@ pip install markdown
 pip install django-filter
 pip install faker
 pip install djangorestframework_simplejwt
+pip install graphene-django

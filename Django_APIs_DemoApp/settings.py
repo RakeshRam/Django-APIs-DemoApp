@@ -40,8 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third Party Libs
+    # REST(DRF)
     'rest_framework',
     'rest_framework.authtoken',
+    # GraphQL
+    "graphene_django",
 
     # App
     'core',
@@ -57,6 +60,10 @@ REST_FRAMEWORK = {
         # JWT Auth(REST)
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+}
+
+GRAPHENE = {
+    "SCHEMA": "django_root.schema.schema"
 }
 
 MIDDLEWARE = [
