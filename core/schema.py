@@ -9,9 +9,11 @@ class PublisherType(DjangoObjectType):
         fields = ('name', 'award')
 
 class AwardType(DjangoObjectType):
+    # Required for PK or ID look-up
+    pk = graphene.ID(source='pk')
     class Meta:
         model = Award
-        fields = ('name', 'country', 'category')
+        fields = ('pk', 'name', 'country', 'category')
 
 class AuthorType(DjangoObjectType):
     class Meta:
@@ -24,6 +26,7 @@ class BookType(DjangoObjectType):
         fields = ('name', 'author', 'award')
 
 
+# Only for Querying data from DB(Read-Only)!!
 class Query(graphene.ObjectType):
     # Example Field
     # qz = graphene.String()
@@ -37,15 +40,15 @@ class Query(graphene.ObjectType):
     """
         query{
             authors{
-                name
-                age
-                author{
                     name
-                    }
-            }
+                    age
+                    author{
+                            name
+                        }
+                }
             books{
-                name
-            }
+                    name
+                }
         }
     """
 
@@ -82,13 +85,70 @@ class Query(graphene.ObjectType):
         """
         Param: query{
                 authors{
-                    name
-                    age
-                }
+                        name
+                        age
+                    }
                 }
         """
         return Author.objects.all().order_by('name')
 
+# !!! CRUD Operations !!!
+class AwardMutation(graphene.Mutation):
+    class Arguments:
+        pk = graphene.ID()
+        name = graphene.String(required=False)
+        country = graphene.String(required=False)
+
+    award = graphene.Field(AwardType)
+
+    @classmethod
+    def mutate(cls, root, info, pk=None, **kwargs):
+        """
+        Ex Mutation:
+        ------------
+        CREATE:
+            mutation createUpdateDeleteAwardRecord{
+                    createUpdateAward(name:"<Name>", country:"<Country>"){
+                        award{
+                            name
+                            country
+                        }    
+                    }
+                }
+
+        UPDATE:
+            mutation createUpdateDeleteAwardRecord{
+                    createUpdateAward(pk:<primary_key>, name:"<Name>", country:"<Country>"){
+                        ....
+                }
+
+        DELETE:
+            mutation createUpdateDeleteAwardRecord{
+                    createUpdateAward(pk:<primary_key>){
+                        ....
+                }
+        """
+
+        # Note: Using PK as an example.
+        if pk:
+            award = Award.objects.get(pk=pk)
+            if kwargs:
+                # Update Existing Record.
+                for (key, value) in kwargs.items():
+                        setattr(award, key, value)
+                award.save()
+            else:
+                # Delete Existing Record.
+                award.delete()
+        else:
+            # Create New Record.
+            award = Award.objects.create(**kwargs)
+
+        return AwardMutation(award=award)
+
+# For Modifying Data in DB(Create-Read-Write-Delete)!!
+class Mutation(graphene.ObjectType):
+    create_update_award = AwardMutation.Field()
     
 
-schema = graphene.Schema(query=Query)
+schema = graphene.Schema(query=Query, mutation=Mutation)

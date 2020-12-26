@@ -16,10 +16,13 @@ python manage.py runserver
 ```
 
 ## Features
+* Basic DRF implementation(CRUD)
 * [Django REST framework](https://www.django-rest-framework.org/)
   * Authentication
     * Token Authentication
     * JWT Authentication
+* Basic Graphql Implementation(CRUD)
+* [Graphene-Django](https://docs.graphene-python.org/projects/django/en/latest/)
 
 
 ## License
