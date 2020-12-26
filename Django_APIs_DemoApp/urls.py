@@ -7,8 +7,11 @@ from rest_framework.authtoken.views import obtain_auth_token
 # JWT
 from rest_framework_simplejwt import views as jwt_views
 
+from core.views import bookHomePage
+
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),
+    path('books/', bookHomePage, name='books_homepage'),
     path('admin/', admin.site.urls),
     
     

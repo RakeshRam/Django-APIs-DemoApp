@@ -7,6 +7,12 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import AuthorSerializer, PublisherSerializer, AwardSerializer, BookSerializer, AwardRecordSerializer
 from .models import Author, Award, Publisher, Book, AwardRecord
 
+def bookHomePage(request):
+    context = {
+        'books': Book.objects.all()
+    }
+    return render(request, 'books.html', context)
+
 class AwardRecordViewSet(viewsets.ModelViewSet):
     queryset = AwardRecord.objects.all().order_by('name')
     serializer_class = AwardRecordSerializer

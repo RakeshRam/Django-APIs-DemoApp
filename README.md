@@ -16,6 +16,7 @@ python manage.py runserver
 ```
 
 ## Features
+* Demo Books Gallery
 * Basic DRF implementation(CRUD)
   * [Django REST framework](https://www.django-rest-framework.org/)
     * Authentication
