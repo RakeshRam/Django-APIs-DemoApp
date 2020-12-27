@@ -9,6 +9,12 @@ pip install -r requirements.txt
 ```
 
 ## Usage
+Setup dummy data.
+
+```
+python manage.py setup_dummydata
+```
+
 Run server in local environment.
 
 ```bash
@@ -21,9 +27,13 @@ python manage.py runserver
   * [Django REST framework](https://www.django-rest-framework.org/)
     * Authentication
       * Token Authentication
-      * JWT Authentication
+      * [JWT Authentication](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/)
 * Basic Graphql Implementation(CRUD)
   * [Graphene-Django](https://docs.graphene-python.org/projects/django/en/latest/)
+    * Authentication
+      * [JWT Authentication](https://django-graphql-jwt.domake.io/en/latest/)
+      * [Django-Graphql-Auth](https://django-graphql-auth.readthedocs.io/en/latest/)
+
 
 
 ## License

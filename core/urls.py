@@ -1,4 +1,5 @@
 from django.urls import path, include
+from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework import routers
 from graphene_django.views import GraphQLView
@@ -17,10 +18,10 @@ router.register(r'books', views.BookViewSet)
 # Include login urls for browsable API
 urlpatterns = [
     # REST
-    path('api/', include(router.urls)),
+    path('api/', include(router.urls)), # Base End point -> http://127.0.0.1:8000/core/api
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     
     # GraphQL
-    # Single END point
-    path(r"graphql", GraphQLView.as_view(graphiql=True, schema=schema)),
+    # Single END point -> http://127.0.0.1:8000/core/graphql
+    path(r"graphql", csrf_exempt(GraphQLView.as_view(graphiql=True, schema=schema))),
 ]

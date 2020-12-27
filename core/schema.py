@@ -1,7 +1,67 @@
 import graphene
 from graphene_django import DjangoObjectType, DjangoListField
+from graphql_auth import mutations
+from graphql_auth.schema import UserQuery, MeQuery
 
 from .models import Author, Award, Publisher, Book, AwardRecord
+
+# Registration
+class AuthMutation(graphene.ObjectType):
+    """
+    Used to register, update and verify user and auth token
+    Example Register: 
+    -----------------
+            mutation {
+                register(
+                    email: "r@r.com", 
+                    username: "newUser", 
+                    password1: "aqwsdf2123", 
+                    password2: "aqwsdf2123"
+                    ) {
+                        success
+                        errors
+                        token
+                        refreshToken
+                    }
+            }
+
+    Example Verification:
+    ---------------------
+            mutation {
+                verifyAccount(token: "eyJ1c2Vybm....."){
+                    success
+                    errors
+                }
+            }
+
+    Example Get JWT(For Registered User):
+    -------------------------------------
+            mutation {
+                tokenAuth(username: "<USER_NAME>", password: "<PWD>"){
+                    success
+                    errors
+                    token
+                    refreshToken
+                    user{
+                        username
+                    }
+                }
+            } 
+
+    Example Update:
+    ---------------
+            mutation {
+                updateAccount(firstName: "Hello"){
+                    success
+                    errors
+                }
+            }
+
+    """
+    register = mutations.Register.Field()
+    verify_account = mutations.VerifyAccount.Field()
+    token_auth = mutations.ObtainJSONWebToken.Field()
+    update_account = mutations.UpdateAccount.Field()
 
 class PublisherType(DjangoObjectType):
     class Meta:
@@ -27,7 +87,7 @@ class BookType(DjangoObjectType):
 
 
 # Only for Querying data from DB(Read-Only)!!
-class Query(graphene.ObjectType):
+class Query(UserQuery, MeQuery, graphene.ObjectType):
     # Example Field
     # qz = graphene.String()
     # def resolve_qz(root, info):
@@ -50,6 +110,27 @@ class Query(graphene.ObjectType):
                     name
                 }
         }
+    """
+    # UserQuery Example
+    """
+    query {
+        users{
+            edges{
+                node{
+                    username
+                    email
+                }
+            }
+        }
+    }
+    """
+    # MeQuery Example: Returns Logged in User
+    """
+    query {
+        me{
+            username
+        }
+    }
     """
 
     books = graphene.List(BookType, id=graphene.Int())
@@ -91,6 +172,8 @@ class Query(graphene.ObjectType):
                 }
         """
         return Author.objects.all().order_by('name')
+
+# ========================================================================================================= #
 
 # !!! CRUD Operations !!!
 class AwardMutation(graphene.Mutation):
@@ -147,8 +230,10 @@ class AwardMutation(graphene.Mutation):
         return AwardMutation(award=award)
 
 # For Modifying Data in DB(Create-Read-Write-Delete)!!
-class Mutation(graphene.ObjectType):
+class Mutation(AuthMutation, graphene.ObjectType):
     create_update_award = AwardMutation.Field()
+
     
+
 
 schema = graphene.Schema(query=Query, mutation=Mutation)

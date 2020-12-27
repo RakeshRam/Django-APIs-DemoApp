@@ -5,3 +5,5 @@ pip install django-filter
 pip install faker
 pip install djangorestframework_simplejwt
 pip install graphene-django
+pip install django-graphql-jwt
+pip install django-graphql-auth
