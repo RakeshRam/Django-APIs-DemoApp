@@ -9,7 +9,7 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-Setup dummy data.
+Set-up dummy data.
 
 ```
 python manage.py setup_dummydata

@@ -81,9 +81,10 @@ class AuthorType(DjangoObjectType):
         fields = ('name', 'award', 'age')
 
 class BookType(DjangoObjectType):
+    pk = graphene.ID(source='pk')
     class Meta:
         model = Book
-        fields = ('name', 'author', 'award')
+        fields = ('name', 'author', 'is_available', 'publisher')
 
 
 # Only for Querying data from DB(Read-Only)!!
@@ -175,7 +176,7 @@ class Query(UserQuery, MeQuery, graphene.ObjectType):
 
 # ========================================================================================================= #
 
-# !!! CRUD Operations !!!
+# !!! CRUD Operations Example !!!
 class AwardMutation(graphene.Mutation):
     class Arguments:
         pk = graphene.ID()
@@ -229,11 +230,54 @@ class AwardMutation(graphene.Mutation):
 
         return AwardMutation(award=award)
 
+# Book Table Basic CRUD operations
+class BookMutation(graphene.Mutation):
+    class Arguments:
+        pk = graphene.ID()
+        name = graphene.String(required=False)
+        is_available = graphene.Boolean()
+        publisher = graphene.Int()
+
+    book = graphene.Field(BookType)
+
+    @classmethod
+    def mutate(cls, root, info, pk=None, **kwargs):
+        """
+        Example Usage:
+            mutation {
+                createUpdateBook(pk:1, publisher:21){
+                    book{
+                        name
+                        isAvailable
+                        publisher{
+                                name
+                            }
+                    }
+                }
+            }
+        """
+        if pk:
+            book = Book.objects.get(pk=pk)
+            if kwargs:
+                # Update Existing Record.
+                for (key, value) in kwargs.items():
+                    if key == 'publisher':
+                        value = Publisher.objects.get(pk=value)
+                    setattr(book, key, value)
+                book.save()
+            else:
+                # Delete Existing Record.
+                book.delete()
+        else:
+            # Create New Record.
+            book = Book.objects.create(**kwargs)
+
+        return BookMutation(book=book)
+
 # For Modifying Data in DB(Create-Read-Write-Delete)!!
 class Mutation(AuthMutation, graphene.ObjectType):
     create_update_award = AwardMutation.Field()
-
-    
+    create_update_book = BookMutation.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)

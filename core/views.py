@@ -9,7 +9,7 @@ from .models import Author, Award, Publisher, Book, AwardRecord
 
 def bookHomePage(request):
     context = {
-        'books': Book.objects.all()
+        'books': Book.objects.filter(is_available=True).order_by('id')[:10] 
     }
     return render(request, 'books.html', context)
 
@@ -52,5 +52,5 @@ class AwardViewSet(viewsets.ModelViewSet):
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Book.objects.all().order_by('name')
     serializer_class = BookSerializer
-    http_method_names = ['get']
+    http_method_names = ['get', 'put', 'post']
 

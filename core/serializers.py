@@ -28,14 +28,17 @@ class AuthorSerializer(serializers.ModelSerializer):
         depth = 2
 
 class BookSerializer(serializers.ModelSerializer):
+    # Required to Add ID field
+    id = serializers.IntegerField()
     # Hyper Link to Related ForeignKey(Ex: Author)
     author = serializers.HyperlinkedRelatedField(
                                                     many=True,
                                                     read_only=True,
                                                     view_name='author-detail'
                                                 )
+    publisher = serializers.PrimaryKeyRelatedField(queryset=Publisher.objects.filter(is_active=True), many=False)
     class Meta:
         model = Book
-        fields = ('name', 'author', 'award')
-        # fields = '__all__'
+        #fields = ('id', 'name', 'author')
+        fields = '__all__'
         depth = 2
