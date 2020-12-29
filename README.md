@@ -91,6 +91,8 @@ python manage.py runserver
   }
   ```
 
+  ![Post Man Snapshot](static/images/rest_put.PNG)
+  
 * Delete Book -> DELETE
 
   ```bash
@@ -137,6 +139,8 @@ python manage.py runserver
   }
   ```
 
+  ![Post Man Snapshot](static/images/gql_query.PNG)
+
 * Mutation
 
   Create
@@ -164,6 +168,8 @@ python manage.py runserver
             }
         }
   ```
+
+  ![Post Man Snapshot](static/images/gql_mutation.PNG)
 
   Delete
 
