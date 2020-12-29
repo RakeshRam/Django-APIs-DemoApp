@@ -4,6 +4,9 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
+from django_grpc_framework import generics
+from .serializers import BookProtoSerializer
+
 from .serializers import AuthorSerializer, PublisherSerializer, AwardSerializer, BookSerializer, AwardRecordSerializer
 from .models import Author, Award, Publisher, Book, AwardRecord
 
@@ -89,4 +92,14 @@ class BookViewSet(viewsets.ModelViewSet):
         serializer = BookSerializer(new_book)
 
         return Response(serializer.data)
+
+
+# ========================================================================================== #
+# gRPC Service
+class BookService(generics.ModelService):
+    """
+    gRPC service to query books.
+    """
+    queryset = Book.objects.all().order_by('-name')
+    serializer_class = BookProtoSerializer
 

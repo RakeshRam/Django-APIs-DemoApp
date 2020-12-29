@@ -1,5 +1,8 @@
 from rest_framework import serializers
 
+from django_grpc_framework import proto_serializers
+from .proto_files import books_pb2
+
 from .models import Author, Award, Publisher, Book, AwardRecord
 
 class PublisherSerializer(serializers.ModelSerializer):
@@ -42,3 +45,11 @@ class BookSerializer(serializers.ModelSerializer):
         #fields = ('id', 'name', 'author')
         fields = '__all__'
         depth = 2
+
+
+# gRPC Serializer
+class BookProtoSerializer(proto_serializers.ModelProtoSerializer):
+    class Meta:
+        model = Book
+        proto_class = books_pb2.Book
+        fields = ('id', 'name', 'publisher', 'is_available')

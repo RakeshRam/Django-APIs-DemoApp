@@ -37,10 +37,12 @@ python manage.py runserver
     * Authentication
       * [JWT Authentication](https://django-graphql-jwt.domake.io/en/latest/)
       * [Django-Graphql-Auth](https://django-graphql-auth.readthedocs.io/en/latest/)
+* Basic gRPC Implementation(CRUD)
+  * [Django gRPC Framework](https://djangogrpcframework.readthedocs.io/en/latest/index.html)
 
 ## <u>API Usage Demo</u>
 
-### **DjangoRestFramework**
+### **DjangoRestFramework:** `/core/api/`
 
 * Get JWT
 
@@ -89,7 +91,7 @@ python manage.py runserver
   /core/api/books/<BOOK_ID>/
   ```
 
-### **GraphQL**
+### **GraphQL:** `/core/graphql`
 
 * Get JSON Web Token for Verified User
 

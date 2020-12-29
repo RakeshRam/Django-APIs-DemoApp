@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
     'graphql_auth',
     'django_filters',
+    # gRPC
+    'django_grpc_framework',
 
     # App
     'core',

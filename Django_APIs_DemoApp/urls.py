@@ -7,7 +7,10 @@ from rest_framework.authtoken.views import obtain_auth_token
 # JWT
 from rest_framework_simplejwt import views as jwt_views
 
-from core.views import bookHomePage
+#gRPC
+from core.proto_files import books_pb2_grpc
+
+from core.views import bookHomePage, BookService
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),
@@ -47,3 +50,6 @@ urlpatterns = [
     #          }
     path('api-jwt/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]
+
+def grpc_handlers(server):
+    books_pb2_grpc.add_BookControllerServicer_to_server(BookService.as_servicer(), server)
