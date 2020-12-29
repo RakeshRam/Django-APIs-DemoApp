@@ -44,7 +44,7 @@ python manage.py runserver
 
 * Get JWT
 
-  ```bash
+  ```javascript
   /api-jwt/token/
   {
       "username": "<USER_NAME>",
@@ -54,7 +54,7 @@ python manage.py runserver
 
 * Create New Book -> POST
 
-  ```json
+  ```javascript
   /core/api/books/
   {
       "publisher": <Publisher_ID>,
@@ -65,7 +65,7 @@ python manage.py runserver
 
 * Update Book -> PUT
 
-  ```json
+  ```javascript
   /core/api/books/<BOOK_ID>/
   {
       "id": <BOOK_ID>,
@@ -86,7 +86,7 @@ python manage.py runserver
 
 * Get JSON Web Token for Verified User
 
-  ```json
+  ```javascript
   mutation {
         tokenAuth(username: "<USER_NAME>", password: "<PWD>") {
           success
@@ -102,17 +102,17 @@ python manage.py runserver
 
 * Query
 
-  ```json
-  {
-    books {
-      name
-    }
+  ```javascript
+  query{
+      books {
+        name
+      }
   }
   ```
 
   With Argument(Book ID).
 
-  ```json
+  ```javascript
   query{
       books(id:<BOOK_ID>){
           name
@@ -124,17 +124,17 @@ python manage.py runserver
 
   Create
 
-  ```python
+  ```javascript
   mutation {
-    createUpdateBook(name:"<BOOK_NAME>", publisher: <Publisher_ID>, isAvailable:true, ....) {
-      book {
-        name
-        isAvailable
-        publisher {
-          name
-        }
-      }
-    }
+            createUpdateBook(name:"<BOOK_NAME>", publisher: <Publisher_ID>, isAvailable:true, ....) {
+              book {
+                name
+                isAvailable
+                publisher {
+                  name
+                }
+              }
+            }
   }
   ```
 
