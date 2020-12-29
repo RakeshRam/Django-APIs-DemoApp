@@ -7,3 +7,5 @@ pip install djangorestframework_simplejwt
 pip install graphene-django
 pip install django-graphql-jwt
 pip install django-graphql-auth
+pip install grpcio
+pip install grpcio-tools

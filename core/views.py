@@ -49,8 +49,44 @@ class AwardViewSet(viewsets.ModelViewSet):
     queryset = Award.objects.all().order_by('name')
     serializer_class = AwardSerializer
 
+# Example CRUD Operations(GET, POST, PUT, DELETE)
 class BookViewSet(viewsets.ModelViewSet):
+    """
+    Example Create -> POST:
+    -----------------------
+                {
+                    "publisher": <Publisher_ID>,
+                    "name": "<BOOK NAME>",
+                    "is_available": true
+                }
+
+    Example Update -> PUT:
+    ----------------------
+                {
+                    "id": <BOOK_ID>,
+                    "publisher": <Publisher_ID>,
+                    "name": "<BOOK NEW_NAME>",
+                    "is_available": true,
+                    
+                }
+
+    Example Delete -> DELETE:
+    -------------------------
+                /core/api/books/<BOOK_ID>/
+    """
     queryset = Book.objects.all().order_by('name')
     serializer_class = BookSerializer
-    http_method_names = ['get', 'put', 'post']
+    http_method_names = ['get', 'put', 'post', 'delete']
+
+    # CREATE NEW Book VIA API - POST
+    def create(self, request, *args, **kwargs):
+        book = request.data
+        if "publisher" in book:
+            book['publisher'] = Publisher.objects.get(pk=book['publisher'])
+        new_book = Book.objects.create(**book)
+        new_book.save()        
+
+        serializer = BookSerializer(new_book)
+
+        return Response(serializer.data)
 

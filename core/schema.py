@@ -191,6 +191,7 @@ class AwardMutation(graphene.Mutation):
         Ex Mutation:
         ------------
         CREATE:
+        -------
             mutation createUpdateDeleteAwardRecord{
                     createUpdateAward(name:"<Name>", country:"<Country>"){
                         award{
@@ -201,12 +202,14 @@ class AwardMutation(graphene.Mutation):
                 }
 
         UPDATE:
+        -------
             mutation createUpdateDeleteAwardRecord{
                     createUpdateAward(pk:<primary_key>, name:"<Name>", country:"<Country>"){
                         ....
                 }
 
         DELETE:
+        -------
             mutation createUpdateDeleteAwardRecord{
                     createUpdateAward(pk:<primary_key>){
                         ....
