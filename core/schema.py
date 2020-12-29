@@ -259,13 +259,15 @@ class BookMutation(graphene.Mutation):
                 }
             }
         """
+        
+        if 'publisher' in kwargs:
+            kwargs['publisher'] = Publisher.objects.get(pk=kwargs['publisher'])
+
         if pk:
             book = Book.objects.get(pk=pk)
             if kwargs:
                 # Update Existing Record.
                 for (key, value) in kwargs.items():
-                    if key == 'publisher':
-                        value = Publisher.objects.get(pk=value)
                     setattr(book, key, value)
                 book.save()
             else:
