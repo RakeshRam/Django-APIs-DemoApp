@@ -4,7 +4,10 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
-from django_grpc_framework import generics
+import grpc
+from google.protobuf import empty_pb2
+# from django_grpc_framework import generics
+from django_grpc_framework.services import Service
 from .serializers import BookProtoSerializer
 
 from .serializers import AuthorSerializer, PublisherSerializer, AwardSerializer, BookSerializer, AwardRecordSerializer
@@ -95,11 +98,53 @@ class BookViewSet(viewsets.ModelViewSet):
 
 
 # ========================================================================================== #
-# gRPC Service
-class BookService(generics.ModelService):
-    """
-    gRPC service to query books.
-    """
-    queryset = Book.objects.all().order_by('-name')
-    serializer_class = BookProtoSerializer
+# gRPC Book Service
+# class BookService(generics.ModelService):
+#     """
+#     gRPC GenericService to query books.
+#     Ref: https://djangogrpcframework.readthedocs.io/en/latest/generics.html#genericservice
+#     """
+#     queryset = Book.objects.all().order_by('-name')
+#     serializer_class = BookProtoSerializer
 
+
+class BookService(Service):
+    """
+    gRPC service to perform CRUD operations on books model.
+    Ref: https://djangogrpcframework.readthedocs.io/en/latest/tutorial/building_services.html#write-a-service
+    Test Command: python manage.py gRPCBookClient
+    """
+    def List(self, request, context):
+        books = Book.objects.all().order_by('-name')
+        serializer = BookProtoSerializer(books, many=True)
+        for msg in serializer.message:
+            yield msg
+
+    def Create(self, request, context):
+        serializer = BookProtoSerializer(message=request)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return serializer.message
+
+    def get_object(self, pk):
+        try:
+            return Book.objects.get(pk=pk)
+        except Book.DoesNotExist:
+            self.context.abort(grpc.StatusCode.NOT_FOUND, 'Book:%s not found!' % pk)
+
+    def Retrieve(self, request, context):
+        book = self.get_object(request.id)
+        serializer = BookProtoSerializer(book)
+        return serializer.message
+
+    def Update(self, request, context):
+        book = self.get_object(request.id)
+        serializer = BookProtoSerializer(book, message=request)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return serializer.message
+
+    def Destroy(self, request, context):
+        book = self.get_object(request.id)
+        book.delete()
+        return empty_pb2.Empty()

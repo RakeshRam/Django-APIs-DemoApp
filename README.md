@@ -10,6 +10,8 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install requirm
 pip install -r requirements.txt
 ```
 
+---
+
 ## <u>Usage</u>
 
 Set-up dummy data.
@@ -23,6 +25,8 @@ Run server in local environment.
 ```bash
 python manage.py runserver
 ```
+
+---
 
 ## <u>Features</u>
 
@@ -39,6 +43,8 @@ python manage.py runserver
       * [Django-Graphql-Auth](https://django-graphql-auth.readthedocs.io/en/latest/)
 * Basic gRPC Implementation(CRUD)
   * [Django gRPC Framework](https://djangogrpcframework.readthedocs.io/en/latest/index.html)
+
+---
 
 ## <u>API Usage Demo</u>
 
@@ -90,6 +96,8 @@ python manage.py runserver
   ```bash
   /core/api/books/<BOOK_ID>/
   ```
+
+---
 
 ### **GraphQL:** `/core/graphql`
 
@@ -165,6 +173,16 @@ python manage.py runserver
                 ....
             }
         }
+  ```
+
+---
+
+### **gRPC:**
+
+  CRUD Operations
+
+  ```bash
+  python manage.py gRPCBookClient
   ```
 
 ## License

@@ -6,8 +6,7 @@ from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
 # JWT
 from rest_framework_simplejwt import views as jwt_views
-
-#gRPC
+# gRPC
 from core.proto_files import books_pb2_grpc
 
 from core.views import bookHomePage, BookService
@@ -51,5 +50,6 @@ urlpatterns = [
     path('api-jwt/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
+# gRPC Routing
 def grpc_handlers(server):
     books_pb2_grpc.add_BookControllerServicer_to_server(BookService.as_servicer(), server)
