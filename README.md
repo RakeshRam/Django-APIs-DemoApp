@@ -50,7 +50,7 @@ python manage.py runserver
 
 ### **DjangoRestFramework:** `/core/api/`
 
-* Get JWT
+* **Get JWT**
 
   ```javascript
   /api-jwt/token/
@@ -60,14 +60,14 @@ python manage.py runserver
   }
   ```
 
-* Query Books -> GET
+* **Query Books -> GET**
 
   ```javascript
   /core/api/books/
   /core/api/books/<BOOK_ID>/
   ```
 
-* Create New Book -> POST
+* **Create New Book -> POST**
 
   ```javascript
   /core/api/books/
@@ -78,7 +78,7 @@ python manage.py runserver
   }
     ```
 
-* Update Book -> PUT
+* **Update Book -> PUT**
 
   ```javascript
   /core/api/books/<BOOK_ID>/
@@ -93,7 +93,7 @@ python manage.py runserver
 
   ![Post Man Snapshot](static/images/rest_put.PNG)
   
-* Delete Book -> DELETE
+* **Delete Book -> DELETE**
 
   ```bash
   /core/api/books/<BOOK_ID>/
@@ -103,7 +103,7 @@ python manage.py runserver
 
 ### **GraphQL:** `/core/graphql`
 
-* Get JSON Web Token for Verified User
+* **Get JSON Web Token for Verified User**
 
   ```javascript
   mutation {
@@ -119,7 +119,7 @@ python manage.py runserver
     }
   ```
 
-* Query
+* **Query**
 
   ```javascript
   query{
@@ -129,7 +129,7 @@ python manage.py runserver
   }
   ```
 
-  With Argument(Book ID).
+  **With Argument(Book ID).**
 
   ```javascript
   query{
@@ -141,9 +141,9 @@ python manage.py runserver
 
   ![Post Man Snapshot](static/images/gql_query.PNG)
 
-* Mutation
+* **Mutation**
 
-  Create
+  **Create**
 
   ```javascript
   mutation {
@@ -159,7 +159,7 @@ python manage.py runserver
   }
   ```
 
-  Update
+  **Update**
 
   ```javascript
   mutation {
@@ -171,7 +171,7 @@ python manage.py runserver
 
   ![Post Man Snapshot](static/images/gql_mutation.PNG)
 
-  Delete
+  **Delete**
 
   ```javascript
   mutation {
@@ -185,7 +185,7 @@ python manage.py runserver
 
 ### **gRPC:**
 
-  CRUD Operations
+  **CRUD Operations**
 
   ```bash
   python manage.py gRPCBookClient
