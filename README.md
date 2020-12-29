@@ -1,4 +1,4 @@
-# Django Demo API Appilication
+# Django Demo API Application
 
 Example Django App with REST, GraphQL and gRPC.
 
