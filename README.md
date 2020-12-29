@@ -52,6 +52,13 @@ python manage.py runserver
   }
   ```
 
+* Query Books -> GET
+
+  ```javascript
+  /core/api/books/
+  /core/api/books/<BOOK_ID>/
+  ```
+
 * Create New Book -> POST
 
   ```javascript
