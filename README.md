@@ -124,7 +124,7 @@ python manage.py runserver
 
   Create
 
-  ```json
+  ```python
   mutation {
     createUpdateBook(name:"<BOOK_NAME>", publisher: <Publisher_ID>, isAvailable:true, ....) {
       book {
