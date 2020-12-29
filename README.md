@@ -140,7 +140,7 @@ python manage.py runserver
 
   Update
 
-  ```json
+  ```javascript
   mutation {
             createUpdateBook(pk:<BOOK_ID>, publisher:<Publisher_ID>, ....){
                 ....
@@ -150,7 +150,7 @@ python manage.py runserver
 
   Delete
 
-  ```json
+  ```javascript
   mutation {
             createUpdateBook(pk:<BOOK_ID>){
                 ....
