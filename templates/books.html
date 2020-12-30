@@ -15,13 +15,55 @@
 			<header class="site-navbar py-3" role="banner">
 			<div class="container-fluid">
 				<div class="row align-items-center">
-					<div class="col-6 col-xl-4 aos-init aos-animate" data-aos="fade-down">
+					<div class="col-6 col-xl-4" data-aos="fade-down">
 						<h1 class="mb-0"><a href="books/" class="text-white h2 mb-0">Demo Books App</a></h1>
+					</div>
+					<div class="col-6 col-xl-4" data-aos="fade-down">
+						<button id="rest" type="button" class="btn btn-success">Edit Using REST</button>
+						<button id="gql" type="button" class="btn btn-info">Edit Using GraphQL</button>
+						
+						<div class="modal fade" id="myModal" role="dialog" data-backdrop="false">
+							<div class="modal-dialog">
+
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 id='m-header' class="modal-title">Basic Example</h4>
+								</div>
+								<div class="modal-body">
+									<form id="apiForm" action="">
+										<input type="hidden" id="api-type" name="api-type" value="">
+										<label for="book-id">Book ID:</label><br>
+										<select id="book-id" name="id">
+											{% for book in books %}
+												<option value="{{ book.id }}">{{ book.id }}</option>
+											{% endfor %}										
+										</select><br>
+										<label for="publisher-id">Publisher ID:</label><br>
+										<input type="text" id="publisher-id" name="publisher" value="21"><br><br>
+										<label for="book-name">Book Name:</label><br>
+										<input type="text" id="book-name" name="name" value=""><br><br>
+										<select id="is_available" name="is_available">
+											<option value="true">True</option>
+											<option value="false">False</option>										
+										</select><br>
+
+										<button id="myFormSubmit" class="btn btn-primary" type="submit">Submit</button>
+									</form> 
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+							
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
 			</header>
-			<div class="container-fluid aos-init aos-animate" data-aos="fade" data-aos-delay="500">
+			<div class="container-fluid" data-aos="fade" data-aos-delay="500">
 				<div class="row">
 					{% for book in books %}
 						<div class="col-lg-4">
@@ -39,5 +81,68 @@
 				</div>
 			</div>
 		</div>
+		<script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+		<script>
+			$('#gql, #rest').click(function(){
+				$("#m-header").html($(this).html());
+				$("#api-type").val($(this).html());
+				$('#myModal').modal('show')
+			});
+
+			$('#myFormSubmit').click(function(e){
+				e.preventDefault();
+				const api_type = $('#api-type').val();
+				const book_id = $("#book-id").val();
+
+				if (api_type.endsWith('GraphQL')){
+					const update_mutation = `mutation ($pk: ID!, $publisher: Int!, $book_is_available: Boolean, $book_name: String) 
+					{
+                        createUpdateBook(
+                        pk:$pk,
+                        publisher:$publisher,
+                        isAvailable:$book_is_available,
+                        name:$book_name
+						){
+						    book{
+						            name
+						        }
+						    }
+                    }`
+					
+					$.ajax({
+						method: "POST",
+						url: '/core/graphql',
+						data: JSON.stringify({
+							query: update_mutation,
+							variables: {
+								pk: book_id,
+								book_name: $("#book-name").val(),
+								publisher: $("#publisher-id").val(),
+								book_is_available: $("#is_available").val()
+							}
+						}),
+						contentType: 'application/json',
+						success: function(result) {
+							$('#myModal').modal('hide')
+							setInterval('location.reload()', 1000);
+						}
+					})
+				}else{
+					const update_url = `/core/api/books/${book_id}/`;
+					$.ajax({
+						type: 'PUT',
+						data : $('#apiForm').serialize(), 
+						cache: false,
+						dataType: 'json',
+						url: update_url, 
+						success: function(result) {
+							$('#myModal').modal('hide')
+							setInterval('location.reload()', 1000);
+						}
+					});
+				}
+			});
+		</script>
 	</body>
 </html>

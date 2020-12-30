@@ -1,4 +1,4 @@
-# Django Demo API Application
+# Django Example API Application
 
 Example Django App with REST, GraphQL and gRPC.
 
@@ -43,6 +43,8 @@ python manage.py runserver
       * [Django-Graphql-Auth](https://django-graphql-auth.readthedocs.io/en/latest/)
 * Basic gRPC Implementation(CRUD)
   * [Django gRPC Framework](https://djangogrpcframework.readthedocs.io/en/latest/index.html)
+    * Authentication
+      * TODO.
 
 ---
 

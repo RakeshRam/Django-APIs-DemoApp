@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand
 import grpc
 from core.proto_files import books_pb2, books_pb2_grpc
 
-# python manage.py setup_dummydata
+# python manage.py gRPCBookClient
 class Command(BaseCommand):
     help = 'Test gRPC Client CRUD Operations'
 
