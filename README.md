@@ -6,15 +6,23 @@ Example Django App with REST, GraphQL and gRPC with Docker(Optional).
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install requirments.txt.
 
+From project root DIR run
+
+Using Docker
+
 ```bash
-pip install -r requirements.txt
+docker-compose up
+```
+
+OR
+
+```bash
+pip install -r requirments.txt
 ```
 
 ---
 
 ## <u>Usage</u>
-
-From project root DIR run
 
 Set-up dummy data.
 
@@ -26,12 +34,6 @@ Run server in local environment.
 
 ```bash
 python manage.py runserver
-```
-
-OR using Docker
-
-```bash
-docker-compose up
 ```
 
 ---
