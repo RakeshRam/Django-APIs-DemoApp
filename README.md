@@ -1,6 +1,6 @@
 # Django Example API Application
 
-Example Django App with REST, GraphQL and gRPC.
+Example Django App with REST, GraphQL and gRPC with Docker(Optional).
 
 ## <u>Installation</u>
 
@@ -14,6 +14,8 @@ pip install -r requirements.txt
 
 ## <u>Usage</u>
 
+From project root DIR run
+
 Set-up dummy data.
 
 ```bash
@@ -24,6 +26,12 @@ Run server in local environment.
 
 ```bash
 python manage.py runserver
+```
+
+OR using Docker
+
+```bash
+docker-compose up
 ```
 
 ---
@@ -45,6 +53,7 @@ python manage.py runserver
   * [Django gRPC Framework](https://djangogrpcframework.readthedocs.io/en/latest/index.html)
     * Authentication
       * TODO.
+* App Integrated with Docker(Optional)
 
 ---
 
