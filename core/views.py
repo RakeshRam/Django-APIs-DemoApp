@@ -15,7 +15,8 @@ from .models import Author, Award, Publisher, Book, AwardRecord
 
 def bookHomePage(request):
     context = {
-        'books': Book.objects.filter(is_available=True).order_by('id')[:10] 
+        'books': Book.objects.filter(is_available=True).order_by('id')[:10],
+        'publishers': Publisher.objects.filter(is_active=True)[:10]
     }
     return render(request, 'books.html', context)
 

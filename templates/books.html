@@ -33,15 +33,19 @@
 								<div class="modal-body">
 									<form id="apiForm" action="">
 										<input type="hidden" id="api-type" name="api-type" value="">
-										<label for="book-id">Book ID:</label><br>
+										<label for="book-id">Book Name:</label><br>
 										<select id="book-id" name="id">
 											{% for book in books %}
-												<option value="{{ book.id }}">{{ book.id }}</option>
+												<option value="{{ book.id }}">{{ book.name }}</option>
 											{% endfor %}										
 										</select><br>
 										<label for="publisher-id">Publisher ID:</label><br>
-										<input type="text" id="publisher-id" name="publisher" value="21"><br><br>
-										<label for="book-name">Book Name:</label><br>
+										<select id="publisher-id" name="publisher">
+											{% for pub_id in publishers %}
+												<option value="{{ pub_id.id }}">{{ pub_id }}</option>
+											{% endfor %}										
+										</select><br>
+										<label for="book-name">New Book Name:</label><br>
 										<input type="text" id="book-name" name="name" value=""><br><br>
 										<select id="is_available" name="is_available">
 											<option value="true">True</option>
