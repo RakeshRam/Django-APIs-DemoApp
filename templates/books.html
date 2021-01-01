@@ -96,6 +96,7 @@
 				const book_id = $("#book-id").val();
 
 				if (api_type.endsWith('GraphQL')){
+					// Utilize GraphQL API
 					const update_mutation = `mutation ($pk: ID!, $publisher: Int!, $book_is_available: Boolean, $book_name: String) 
 					{
                         createUpdateBook(
@@ -112,7 +113,7 @@
 					
 					$.ajax({
 						method: "POST",
-						url: '/core/graphql',
+						url: '/core/graphql',  // GraphQL EndPoint
 						data: JSON.stringify({
 							query: update_mutation,
 							variables: {
@@ -129,7 +130,8 @@
 						}
 					})
 				}else{
-					const update_url = `/core/api/books/${book_id}/`;
+					// Utilize REST API
+					const update_url = `/core/api/books/${book_id}/`;  //REST EndPoint
 					$.ajax({
 						type: 'PUT',
 						data : $('#apiForm').serialize(), 

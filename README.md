@@ -203,6 +203,68 @@ python manage.py runserver
   ```bash
   python manage.py gRPCBookClient
   ```
+  
+---
+
+## Example JS
+
+```javascript
+$('#myFormSubmit').click(function(e){
+  e.preventDefault();
+  const api_type = $('#api-type').val();
+  const book_id = $("#book-id").val();
+
+  if (api_type.endsWith('GraphQL')){
+    // Utilize GraphQL API
+    const update_mutation = `mutation ($pk: ID!, $publisher: Int!, $book_is_available: Boolean, $book_name: String) 
+    {
+          createUpdateBook(
+            pk:$pk,
+            publisher:$publisher,
+            isAvailable:$book_is_available,
+            name:$book_name
+      ){
+          book{
+              name
+            }
+        }
+    }`
+    
+    $.ajax({
+      method: "POST",
+      url: '/core/graphql',  // GraphQL EndPoint
+      data: JSON.stringify({
+        query: update_mutation,
+        variables: {
+          pk: book_id,
+          book_name: $("#book-name").val(),
+          publisher: $("#publisher-id").val(),
+          book_is_available: $("#is_available").val()
+        }
+      }),
+      contentType: 'application/json',
+      success: function(result) {
+        $('#myModal').modal('hide')
+        setInterval('location.reload()', 1000);
+      }
+    })
+  }else{
+    // Utilize REST API
+    const update_url = `/core/api/books/${book_id}/`;  //REST EndPoint
+    $.ajax({
+      type: 'PUT',
+      data : $('#apiForm').serialize(), 
+      cache: false,
+      dataType: 'json',
+      url: update_url, 
+      success: function(result) {
+        $('#myModal').modal('hide')
+        setInterval('location.reload()', 1000);
+      }
+    });
+  }
+});
+```
 
 ## License
 
