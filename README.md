@@ -8,25 +8,22 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install requirm
 
 From project root DIR run
 
-Using Docker
+## <u>Usage(Docker)</u>
 
 ```bash
 docker-compose up
 ```
 
-OR
+---
+
+## <u>Usage(Manual)</u>
+
+To Set-up environment and dummy data.
 
 ```bash
 pip install -r requirments.txt
-```
-
----
-
-## <u>Usage</u>
-
-Set-up dummy data.
-
-```bash
+python manage.py makemigrations
+python manage.py migrate
 python manage.py setup_dummydata
 ```
 
