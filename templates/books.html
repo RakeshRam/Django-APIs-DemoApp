@@ -129,21 +129,21 @@
 						}),
 						contentType: 'application/json',
 						success: function(result) {
-							$('#myModal').modal('hide')
+							$('#myModal').modal('hide');
 							setInterval('location.reload()', 1000);
 						}
-					})
+					});
 				}else{
 					// Utilize REST API
 					const update_url = `/core/api/books/${book_id}/`;  //REST EndPoint
 					$.ajax({
 						type: 'PUT',
-						data : $('#apiForm').serialize(), 
+						data : $('#apiForm').serialize(),
 						cache: false,
 						dataType: 'json',
 						url: update_url, 
 						success: function(result) {
-							$('#myModal').modal('hide')
+							$('#myModal').modal('hide');
 							setInterval('location.reload()', 1000);
 						}
 					});
